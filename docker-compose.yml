@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   sls-management-ui:
     image: ghcr.io/openirl/sls-management-ui:latest
@@ -40,8 +41,9 @@ services:
     restart: unless-stopped
     environment:
       - RECEIVER_API=http://receiver:8080
+      # Add other backend env vars here (e.g., ADMIN_USER, ADMIN_PASS)
     ports:
-      - "8081:8080"
+      - "8081:8080" # Host:Container - API will be at localhost:8081
     depends_on:
       - receiver
     logging:
@@ -55,8 +57,9 @@ services:
     container_name: srtla-dashboard
     environment:
       - REACT_APP_SRTLA_API=http://dashboard-backend:8080
+      # Add other frontend env vars here if needed
     ports:
-      - "3001:80"
+      - "3001:80" # Host:Container - Dashboard UI at localhost:3001
     depends_on:
       - dashboard-backend
     logging:
